@@ -7,7 +7,7 @@ from parameter import *
 
 from manipulations import *
 from merge import *
-
+from fab2XDFL import *
 import subprocess
 
 
@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.functions = ["translate","rotate","parity","mirror",
                             "drop clearance","set clearance","scale",
-                            "threshold","start path","merge"]
+                            "threshold","start path","merge","fab2XDFL"]
         self.parameterLayout = self.scrollAreaWidgetContents.layout()
         
         self.functionComboBox.addItems(self.functions)
@@ -87,7 +87,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.parameterWidgets.append(Parameter("file: ",""))
             self.parameterWidgets.append(Parameter("file: ",""))
             self.parameterWidgets.append(Parameter("file: ",""))
-        
+        elif self.functionComboBox.currentIndex ()==10: #"fab2XDFL"
+            self.operationLabel.setText("fab2XDFL files")
+
         for widget in self.parameterWidgets:
             self.parameterLayout.addWidget(widget)
         
@@ -136,8 +138,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for param in params:
                 if param: files.append(param)
             runMerge(clearance,files,self.outputLineEdit.text())
+        elif self.functionComboBox.currentIndex ()==10:
+            self.fabTree = fab2XDFL(self.fabTree)
         if self.functionComboBox.currentIndex ()!=9:
-            writeTree(self.outputLineEdit.text(), self.fabTree)
+            writeTree(self.outputLineEdit.text().replace(".fab",".xdfl"), self.fabTree)
     
         '''
         cmd = "manipulations.exe "+self.functions[self.functionComboBox.currentIndex ()].replace(" ","")
@@ -153,9 +157,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #si.wShowWindow = subprocess.SW_HIDE # default
         subprocess.call(str(cmd), startupinfo=si)
         '''
+        QtGui.QMessageBox.information(self,"Done","operation complete")
         
     def setFile(self):
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.','*.xdfl')
+        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '.','*.xdfl *.fab')
         if fname:
             self.inputLineEdit.setText(fname)
             self.outputLineEdit.setText(fname)
