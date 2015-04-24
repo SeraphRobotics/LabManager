@@ -9,6 +9,7 @@ setup(windows=[{
             ('imageformats', [
               r'C:\Python27\Lib\site-packages\PyQt4\plugins\imageformats\qico4.dll'
               ])],
+      zipfile = None,
       options={"py2exe": {
                         "includes": ["sip", "PyQt4.QtGui"],
                         "bundle_files":1,
@@ -16,6 +17,8 @@ setup(windows=[{
                         }
               }
      ) 
+	 
+	 
 '''
 FROM :http://www.py2exe.org/index.cgi/Py2exeAndPyQt 
 PyQt4 and image loading (JPG, GIF, etc)
@@ -25,4 +28,10 @@ PyQt4 uses plugins to read those image formats, so you'll need to copy the folde
 If the plugins are not reachable, then QPixmap.load/loadFromData will return False when loading an image in those formats.
 
 This will work with bundle_files as well, but you need to exclude the Qt DLLs from bundle (using the dll_excludes option) and add them to the directory with the executable through some other mechanism (such as data_files).
+
+Make sure to copy the QtCore files from the PyQt direcrtory and not from the Qt directory.
+
+Failing to do so will cause compiling errors
+
+
 '''
