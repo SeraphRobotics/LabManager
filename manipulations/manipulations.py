@@ -338,17 +338,17 @@ if __name__ == '__main__':
         print sys.argv
     
     if todo== "help":
-        print " theshold\tmanipulations.py threshold 'file name' ('write name')"
-        print " translate\tmanipulations.py translate 'file name' x y z (id)"
-        print " rotate  \tmanipulations.py rotate 'file name' theta axis('write name')"
-        print " parity  \tmanipulations.py parity 'file name' ('write name')"
-        print " mirror  \tmanipulations.py mirror 'file name' 'axis' ('write name')"
-        print " startpath\tmanipulations.py startpath 'file name' index ('write name')"
-        print " dimensions\tmanipulations.py dimensions 'file name' "
-        print " drop clearance\tmanipulations.py dropclearance 'filename' ('write name')"
-        print " set clearance\tmanipulations.py setclearance 'filename' clearance (speed)"
-        print " scale  \tmanipulations.py scale 'filename' x y z ('write name')"
-        print " toFab  \tmanipulations.py toFab 'filename' ('write name')"
+        print " theshold    manipulations.py threshold 'file name' ('write name')"
+        print " translate    manipulations.py translate 'file name' x y z (id)"
+        print " rotate      manipulations.py rotate 'file name' theta axis('write name')"
+        print " parity      manipulations.py parity 'file name' ('write name')"
+        print " mirror      manipulations.py mirror 'file name' 'axis' ('write name')"
+        print " startpath    manipulations.py startpath 'file name' index ('write name')"
+        print " dimensions    manipulations.py dimensions 'file name' "
+        print " drop clearance    manipulations.py dropclearance 'filename' ('write name')"
+        print " set clearance    manipulations.py setclearance 'filename' clearance (speed)"
+        print " scale      manipulations.py scale 'filename' x y z ('write name')"
+        print " toFab      manipulations.py toFab 'filename' ('write name')"
         
     else: 
         fabTree = ElementTree(file = sys.argv[2])
@@ -370,7 +370,7 @@ if __name__ == '__main__':
                 if len(sys.argv)>6:
                     id = int(sys.argv[6])
                 fabTree=translate(fabTree, x, y, z, id)
-				fabTree = sortIntoLayers(fabTree)
+                fabTree = sortIntoLayers(fabTree)
                 writeTree(sys.argv[2], fabTree)    
             else: print_error()
         
