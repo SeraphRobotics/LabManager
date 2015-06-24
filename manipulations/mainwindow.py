@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.functions = ["translate","rotate","parity","mirror",
                             "drop clearance","set clearance","scale",
-                            "threshold","start path","merge","fab2XDFL"]
+                            "threshold","start path","merge","fab2XDFL","sort"]
         self.parameterLayout = self.scrollAreaWidgetContents.layout()
         
         self.functionComboBox.addItems(self.functions)
@@ -89,7 +89,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.parameterWidgets.append(Parameter("file: ",""))
         elif self.functionComboBox.currentIndex ()==10: #"fab2XDFL"
             self.operationLabel.setText("fab2XDFL files")
-
+        elif self.functionComboBox.currentIndex ()==11: #"Sort Layers"
+            self.operationLabel.setText("Sort layers")
         for widget in self.parameterWidgets:
             self.parameterLayout.addWidget(widget)
         
@@ -140,6 +141,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             runMerge(clearance,files,self.outputLineEdit.text())
         elif self.functionComboBox.currentIndex ()==10:
             self.fabTree = fab2XDFL(self.fabTree)
+        elif self.functionComboBox.currentIndex ()==11:
+            self.fabTree = sortIntoLayers(self.fabTree)
         if self.functionComboBox.currentIndex ()!=9:
             writeTree(self.outputLineEdit.text().replace(".fab",".xdfl"), self.fabTree)
     

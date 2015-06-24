@@ -229,8 +229,9 @@ def translate(fabTree, dx=0, dy=0, dz=0,id=-1):
         for i in range(0,3): newvalues.append(pointvalues[i]+arguments[i])
         return newvalues
     
-    values = [dx, dy, dz]    
-    return forEachPoint(fabTree, translator, values, id) 
+    values = [dx, dy, dz]  
+    fabTree = dropClearance(fabTree)
+    return sortIntoLayers(forEachPoint(fabTree, translator, values, id)) 
 
 def rotate(fabTree, theta,axis='z',id=-1):
     "This will rotate element tree and return the tree"
@@ -370,7 +371,6 @@ if __name__ == '__main__':
                 if len(sys.argv)>6:
                     id = int(sys.argv[6])
                 fabTree=translate(fabTree, x, y, z, id)
-                fabTree = sortIntoLayers(fabTree)
                 writeTree(sys.argv[2], fabTree)    
             else: print_error()
         
