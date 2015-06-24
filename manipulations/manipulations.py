@@ -370,6 +370,7 @@ if __name__ == '__main__':
                 if len(sys.argv)>6:
                     id = int(sys.argv[6])
                 fabTree=translate(fabTree, x, y, z, id)
+				fabTree = sortIntoLayers(fabTree)
                 writeTree(sys.argv[2], fabTree)    
             else: print_error()
         
