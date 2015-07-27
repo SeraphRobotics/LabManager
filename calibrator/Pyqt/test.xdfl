@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<XDFL>
+  <Palette>
+    <material>
+      <id>1</id>
+      <name>default</name>
+      <PathWidth>0.800000</PathWidth>
+      <PathHeight>0.800000</PathHeight>
+      <PathSpeed>30.000000</PathSpeed>
+      <AreaConstant>1.000000</AreaConstant>
+      <CompressionVolume>0.000000</CompressionVolume>
+      <property>
+        <name>temp</name>
+        <value>180.000000</value>
+      </property>
+    </material>
+  </Palette>
+  <commands>
+    <path>
+      <materialid>1</materialid>
+      <point>
+        <x>0.000000</x>
+        <y>0.000000</y>
+        <z>0.800000</z>
+      </point>
+      <point>
+        <x>50.000000</x>
+        <y>0.000000</y>
+        <z>0.800000</z>
+      </point>
+    </path>
+  </commands>
+</XDFL>
