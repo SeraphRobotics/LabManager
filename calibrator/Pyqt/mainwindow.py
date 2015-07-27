@@ -93,9 +93,82 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         zel = ET.SubElement(point,"z")
         zel.text = "%f"%z
         
-    def _on_generate_toolscript():
+    def _on_generate_toolscript(self):
         fname = QtGui.QFileDialog.getSaveFileName(self, 'Save  file', '.')
         if fname:
+            var = str(self.tipLineEdit.text()).replace(" ","")+str(self.matVarLineEdit.text()).replace(" ","")
+            root = ET.Element("toolScript")
+            root.attrib['name']= str(self.tipLineEdit.text())+ " "+str(self.matNameLineEdit.text())
+            root.attrib['description']=str(self.commentTextEdit.toPlainText())
+            if(self.toolHeadComboBox.currentIndex() == 0):
+                root.attrib['printer']= "Seraph Valve"
+            elif(self.toolHeadComboBox.currentIndex() == 1):
+                root.attrib['printer']= "Seraph"
+            elif(self.toolHeadComboBox.currentIndex() == 2):
+                root.attrib['printer']= "Seraph Plastic"
+            else:
+                root.attrib['printer']= "Seraph"
+             ##### Make global  settings section
+            settings = ET.SubElement(root,"settings")
+            printaccel = ET.SubElement(settings,"printAcceleration")
+            printaccel.attrib['text']="Print Acceleration"
+            printaccel.attrib['units']="mm/s^2"
+            printaccel.text = "100"
+            
+            
+            ##### Make tool section
+            tool = ET.SubElement(root,"tool")
+            tool.attrib["name"] = str(self.tipLineEdit.text())+ " "+str(self.matNameLineEdit.text())
+            tool.attrib["material"] = str(self.matNameLineEdit.text())
+            tool.attrib["scriptVariable"] = var
+            
+            toolsettings = ET.SubElement(tool,"settings")
+            pw = ET.SubElement(toolsettings,"pathWidth")
+            ph = ET.SubElement(toolsettings,"pathHeight")
+            ps = ET.SubElement(toolsettings,"pathSpeed")
+            ac = ET.SubElement(toolsettings,"areaConstant")
+            cv = ET.SubElement(toolsettings,"compressionVolume")
+            
+            pw.text = "%f"%self.widthSpinBox.value()
+            ph.text = "%f"%self.heightSpinBox.value()
+            ps.text = "%f"%self.speedSpinBox.value()
+            ac.text = "%f"%self.areaSpinBox.value()
+            cv.text = "%f"%self.cvSpinBox.value()
+            if(self.toolHeadComboBox.currentIndex() == 2):
+                temp = ET.SubElement(toolsettings,"temp")
+                temp.text = "%f"%self.tempSpinBox.value()
+            
+            #### Make script
+            printScript = ET.SubElement(root,"printScript")
+            
+            pathing='''
+progress.setSteps(%s.meshes.length*2 + 3);
+
+slicer.setSliceHeight(%s.pathHeight);
+pather.set("PathWidth", %s.pathWidth);
+for (var i = 0; i LESSTHAN %s.meshes.length; ++i) {
+  progress.log("Slicing %s Mesh");
+  slicer.doSlicing(%s.meshes[i]);
+  progress.step();
+  progress.log("Pathing %s Mesh");
+  pather.doPathing(%s.meshes[i]);
+  progress.step();
+}
+
+
+var fabWriter = fabFile.fabAtHomeModel2Writer();
+fabWriter.addMeshes("%s", %s, %s.meshes);
+progress.step();
+fabWriter.sortBottomUp();
+fabWriter.setPrintAcceleration(printAcceleration);
+progress.step();
+fabWriter.print();
+progress.finish();'''%(var,var,var,var,var,var,var,var,var,var,var)
+
+            printScript.text = "CDATAOPEN"+pathing+"CDATACLOSE"
+            scriptTree = ElementTree(element = root)
+            ET.dump(scriptTree)
+            writeTree(fname,scriptTree)
             
         
 #####################################################
@@ -121,6 +194,11 @@ def writeTree(output_file, tree):
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?> \n")
     indent(tree.getroot())
     string = ET.tostring(tree.getroot())
+    cdata_open = "\n<![CDATA["
+    cdata_close = "]]>\n"
+    string = string.replace("CDATAOPEN",cdata_open)
+    string = string.replace("CDATACLOSE",cdata_close)
+    string = string.replace("LESSTHAN","<")
     f.write(string)
     f.close()          
         
