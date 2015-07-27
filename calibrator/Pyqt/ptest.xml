@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<toolScript description="" name="onepoint4 plastic" printer="Seraph Plastic">
+  <settings>
+    <printAcceleration text="Print Acceleration" units="mm/s^2">100</printAcceleration>
+  </settings>
+  <tool material="plastic" name="onepoint4 plastic" scriptVariable="onepoint4fast">
+    <settings>
+      <pathWidth>0.800000</pathWidth>
+      <pathHeight>0.800000</pathHeight>
+      <pathSpeed>30.000000</pathSpeed>
+      <areaConstant>1.000000</areaConstant>
+      <compressionVolume>0.000000</compressionVolume>
+      <temp>180.000000</temp>
+    </settings>
+  </tool>
+  <printScript>
+<![CDATA[function makeCalib(x){
+  y={pathSpeed: x.pathSpeed,
+	 pathHeight: x.pathHeight,
+	 pathWidth: x.pathWidth,
+	 areaConstant: x.areaConstant,
+	 compressionVolume: x.compressionVolume,
+     temp:x.temp
+	}
+  return y;
+}
+
+progress.setSteps(onepoint4fast.meshes.length*2 + 3);
+
+slicer.setSliceHeight(onepoint4fast.pathHeight);
+pather.set("PathWidth", onepoint4fast.pathWidth);
+for (var i = 0; i < onepoint4fast.meshes.length; ++i) {
+  progress.log("Slicing onepoint4fast Mesh");
+  slicer.doSlicing(onepoint4fast.meshes[i]);
+  progress.step();
+  progress.log("Pathing onepoint4fast Mesh");
+  pather.doPathing(onepoint4fast.meshes[i]);
+  progress.step();
+}
+
+var onepoint4fastMaterialCalibration = makeCalib(onepoint4fast);
+var fabWriter = fabFile.fabAtHomeModel2Writer();
+fabWriter.addMeshes("plastic", onepoint4fastMaterialCalibration, onepoint4fast.meshes);
+progress.step();
+fabWriter.sortBottomUp();
+fabWriter.setPrintAcceleration(printAcceleration);
+progress.step();
+fabWriter.print();
+progress.finish();]]>
+</printScript>
+</toolScript>

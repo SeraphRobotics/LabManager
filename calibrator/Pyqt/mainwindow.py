@@ -134,13 +134,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             ps.text = "%f"%self.speedSpinBox.value()
             ac.text = "%f"%self.areaSpinBox.value()
             cv.text = "%f"%self.cvSpinBox.value()
+            tempstring=""
             if(self.toolHeadComboBox.currentIndex() == 2):
                 temp = ET.SubElement(toolsettings,"temp")
                 temp.text = "%f"%self.tempSpinBox.value()
+                tempstring=",\n     temp:x.temp"
             
             #### Make script
             printScript = ET.SubElement(root,"printScript")
             
+            makeCalib = '''function makeCalib(x){
+  y={pathSpeed: x.pathSpeed,
+	 pathHeight: x.pathHeight,
+	 pathWidth: x.pathWidth,
+	 areaConstant: x.areaConstant,
+	 compressionVolume: x.compressionVolume%s
+	}
+  return y;
+}\n'''%tempstring
+
             pathing='''
 progress.setSteps(%s.meshes.length*2 + 3);
 
@@ -155,17 +167,17 @@ for (var i = 0; i LESSTHAN %s.meshes.length; ++i) {
   progress.step();
 }
 
-
+var %sMaterialCalibration = makeCalib(%s);
 var fabWriter = fabFile.fabAtHomeModel2Writer();
-fabWriter.addMeshes("%s", %s, %s.meshes);
+fabWriter.addMeshes("%s", %sMaterialCalibration, %s.meshes);
 progress.step();
 fabWriter.sortBottomUp();
 fabWriter.setPrintAcceleration(printAcceleration);
 progress.step();
 fabWriter.print();
-progress.finish();'''%(var,var,var,var,var,var,var,var,var,var,var)
+progress.finish();'''%(var,var,var,var,var,var,var,var,var,var,str(self.matNameLineEdit.text()),var,var)
 
-            printScript.text = "CDATAOPEN"+pathing+"CDATACLOSE"
+            printScript.text = "CDATAOPEN"+makeCalib+pathing+"CDATACLOSE"
             scriptTree = ElementTree(element = root)
             ET.dump(scriptTree)
             writeTree(fname,scriptTree)
