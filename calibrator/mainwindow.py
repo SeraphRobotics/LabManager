@@ -46,18 +46,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def _on_generate_xdfl(self):
         
-        root = ET.Element("XDFL")
-        pal = ET.SubElement(root,"Palette")
+        root = ET.Element("xdfl")
+        pal = ET.SubElement(root,"palette")
         cmds = ET.SubElement(root,"commands")
         mat = ET.SubElement(pal,"material")
         
         id = ET.SubElement(mat,"id")
         name = ET.SubElement(mat,"name")
-        pw = ET.SubElement(mat,"PathWidth")
-        ph = ET.SubElement(mat,"PathHeight")
-        ps = ET.SubElement(mat,"PathSpeed")
-        ac = ET.SubElement(mat,"AreaConstant")
-        cv = ET.SubElement(mat,"CompressionVolume")
+        pw = ET.SubElement(mat,"pathWidth")
+        ph = ET.SubElement(mat,"pathHeight")
+        ps = ET.SubElement(mat,"pathSpeed")
+        ac = ET.SubElement(mat,"areaConstant")
+        cv = ET.SubElement(mat,"compressionVolume")
         
         id.text = "1"
         pw.text = "%f"%self.widthSpinBox.value()
@@ -73,11 +73,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             n.text = "temp"
             v = ET.SubElement(p,"value")
             v.text = "%f"%self.tempSpinBox.value()
-        path = ET.SubElement(cmds,"path")
-        matID = ET.SubElement(path,"materialid")
+        path1 = ET.SubElement(cmds,"path")
+        matID = ET.SubElement(path1,"materialId")
         matID.text = "1"
-        self.makePt(path,0,0,self.heightSpinBox.value())
-        self.makePt(path,50,0,self.heightSpinBox.value())
+        self.makePt(path1,0,0,self.heightSpinBox.value())
+        self.makePt(path1,50,0,self.heightSpinBox.value())
+        path2 = ET.SubElement(cmds,"path")
+        speed = ET.SubElement(path2,"speed")
+        speed.text = "30"
+        self.makePt(path2,50,0,self.heightSpinBox.value())
+        self.makePt(path2,50,0,self.heightSpinBox.value()+2)
+        self.makePt(path2,0,0,self.heightSpinBox.value()+2)
+        self.makePt(path2,0,0,self.heightSpinBox.value())
         fname = QtGui.QFileDialog.getSaveFileName(self, 'Save  file', '.')
         if fname:
             xdflTree = ElementTree(element = root)

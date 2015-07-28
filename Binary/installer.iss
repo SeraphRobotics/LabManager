@@ -1,4 +1,4 @@
-[Setup]
+ [Setup]
 AppName=Seraph Lab Manager
 AppVersion=1.0
 DefaultDirName={pf}\Seraph Robotics
