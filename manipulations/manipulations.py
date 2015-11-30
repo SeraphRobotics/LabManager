@@ -120,11 +120,16 @@ def dropClearance(fabTree):
             matidel = path.find("materialid")
         if (type(None) != type(matidel)): 
             matid = int(matidel.text)
+        
+        
+        speed = path.find("speed")
+        if (type(None) != type(speed)):
+            matid = 0
         if (matid==0):
             cmd.remove(path)
     return fabTree    
     
-def setClearance(fabTree, clearance, speed= 10):
+def setClearance(fabTree, clearance, speed= 10,zspeed=1):
         ### ONLY WORKS FOR PATH ONLY COMMANDS! Will drop Dwell or Voxel tags
         # remove old clearances
         fabTree = dropClearance(fabTree)
@@ -154,9 +159,16 @@ def setClearance(fabTree, clearance, speed= 10):
                 ##make clearance path between
                 pointA = [lastpoint[0],lastpoint[1],lastpoint[2]+clearance]
                 pointB = [firstpoint[0],firstpoint[1],firstpoint[2]+clearance]
-                pointslist=[lastpoint,pointA,pointB,firstpoint]
-                transitionpath = pathFromPointsList(pointslist,0,speed)
-                newcmd.append(transitionpath)
+                
+                uplist = [lastpoint,pointA]
+                overlist = [pointA,pointB]
+                downlist = [pointB,firstpoint]
+                uppath = pathFromPointsList(uplist,0,zspeed)
+                overpath = pathFromPointsList(overlist,0,speed)
+                downpath = pathFromPointsList(downlist,0,zspeed)
+                newcmd.append(uppath)
+                newcmd.append(overpath)
+                newcmd.append(downpath)
             
             ## add path to new commands and set last point
             newcmd.append(path)
@@ -347,7 +359,7 @@ if __name__ == '__main__':
         print " startpath    manipulations.py startpath 'file name' index ('write name')"
         print " dimensions    manipulations.py dimensions 'file name' "
         print " drop clearance    manipulations.py dropclearance 'filename' ('write name')"
-        print " set clearance    manipulations.py setclearance 'filename' clearance (speed)"
+        print " set clearance    manipulations.py setclearance 'filename' clearance (speed) (zspeed)"
         print " scale      manipulations.py scale 'filename' x y z ('write name')"
         print " toFab      manipulations.py toFab 'filename' ('write name')"
         
@@ -406,14 +418,17 @@ if __name__ == '__main__':
             
         elif todo == "dropclearance":
             fabTree=dropClearance(fabTree)
+            fabTree=dropClearance(fabTree)
             if len(sys.argv)>3: writeTree(sys.argv[3],fabTree)
             else: writeTree(sys.argv[2],fabTree)
             
         elif todo == "setclearance":
             clearance = float(sys.argv[3])
             speed = 10
+            zspeed=1
             if len(sys.argv)>4: speed = float(sys.argv[4])
-            fabTree=setClearance(fabTree,clearance,speed)
+            if len(sys.argv)>5: speed = float(sys.argv[5])
+            fabTree=setClearance(fabTree,clearance,speed,zspeed)
             writeTree(sys.argv[2],fabTree)
             
         elif todo == "scale":

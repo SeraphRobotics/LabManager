@@ -68,6 +68,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.operationLabel.setText("Set the amount the head will move up, and speed of movement between extrusion paths")
             self.parameterWidgets.append(Parameter("Clearance (mm)","0.1"))
             self.parameterWidgets.append(Parameter("Speed(mm/2)","10"))
+            self.parameterWidgets.append(Parameter("Z axis Speed(mm/2)","1"))
         elif self.functionComboBox.currentIndex ()==6:
             self.operationLabel.setText("Scale the file by a percentage along the x y and z dimensions")
             self.parameterWidgets.append(Parameter("x","1"))
@@ -116,11 +117,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
         elif self.functionComboBox.currentIndex ()==4:#dropclearance
             self.fabTree=dropClearance(self.fabTree)
+            self.fabTree=dropClearance(self.fabTree)
             
         elif self.functionComboBox.currentIndex ()==5:#setclearance
             clearance = float(params[0])
             speed = float(params[1])
-            self.fabTree=setClearance(self.fabTree,clearance,speed)
+            zspeed = float(params[2])
+            self.fabTree=setClearance(self.fabTree,clearance,speed,zspeed)
         elif self.functionComboBox.currentIndex ()==6:#scale
             x = float(params[0])
             y = float(params[1])
