@@ -1,8 +1,9 @@
-[Setup]
+ [Setup]
 AppName=Seraph Lab Manager
 AppVersion=1.0
 DefaultDirName={pf}\Seraph Robotics
 DefaultGroupName = Seraph Lab Manager
+LicenseFile=license.txt
 
 [Dirs]
 Name: "{app}\calibrator"
