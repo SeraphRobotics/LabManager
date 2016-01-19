@@ -124,11 +124,11 @@ def dropClearance(fabTree):
             cmd.remove(path)
     return fabTree    
     
-def setClearance(fabTree, clearance, speed= 10):
+def setClearance(fabTree, clearance, xspeed= 10, zspeed=1):
         ### ONLY WORKS FOR PATH ONLY COMMANDS! Will drop Dwell or Voxel tags
         # remove old clearances
         fabTree = dropClearance(fabTree)
-        
+        fabTree = dropClearance(fabTree)
         
         root = fabTree.getroot()
         oldcmd = root.find("commands")
@@ -154,9 +154,15 @@ def setClearance(fabTree, clearance, speed= 10):
                 ##make clearance path between
                 pointA = [lastpoint[0],lastpoint[1],lastpoint[2]+clearance]
                 pointB = [firstpoint[0],firstpoint[1],firstpoint[2]+clearance]
-                pointslist=[lastpoint,pointA,pointB,firstpoint]
-                transitionpath = pathFromPointsList(pointslist,0,speed)
-                newcmd.append(transitionpath)
+                pointslist_up=[lastpoint,pointA]
+                pointslist_over =[pointA,pointB]
+                pointslist_down = [pointB,firstpoint]
+                transitionpath_up = pathFromPointsList(pointslist_up,0,zspeed)
+                transitionpath_over = pathFromPointsList(pointslist_over,0,xspeed)
+                transitionpath_down = pathFromPointsList(pointslist_down,0,zspeed)
+                newcmd.append(transitionpath_up)
+                newcmd.append(transitionpath_over)
+                newcmd.append(transitionpath_down)
             
             ## add path to new commands and set last point
             newcmd.append(path)
