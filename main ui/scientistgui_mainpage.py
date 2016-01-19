@@ -49,27 +49,28 @@ def launchwebsite():
     webbrowser.open('http://www.seraphrobotics.com')
 
 ## Launch external PDF files
-def heatedtray():
-    openfile(r"Documents\Heated Build Tray.pdf")
+def accessoriesGuide():
+    openfile(r"Documents\Accessories Guide.pdf")
 
 def tempctrl():
     openfile(r"Documents\Temperature controller.pdf")
     
-def usbmcr():
-    openfile(r"Documents\USB Microscope Tool.pdf")
+def filament():
+    openfile(r"Documents\Filament Tool Guide.pdf")
 def uvspcs():
-    openfile(r"Documents\UV tool.pdf")
+    openfile(r"Documents\UV Optical Characteristics.pdf")
 '''
 helpmenu.add_command(label="View Software Guide", command=launchwebsite)
 helpmenu.add_command(label="View XDFL & Calibration Guide", command=launchwebsite)
 helpmenu.add_command(label="View Assembly Instructions", command=launchwebsite)
 '''    
-def swguide():
-    openfile(r"Documents\SeraphSW guide.pdf")
+def hardware():
+    openfile(r"Documents\Hardware Specs Summary.pdf")
     
-def xdfl():
-    openfile(r"Documents\XDFL User Guide.pdf")
-
+def software():
+    openfile(r"Documents\Software and Calibration Guide.pdf")
+def fullguide():
+    openfile(r"Documents\Full User Guide.pdf")
 
 def quit():         #exits tk window, program still running
     tk.destroy()
@@ -149,13 +150,14 @@ helpmenu = Menu(menubar, tearoff=0)
 helpmenu.add_command(label="Launch Seraph Robotics Website", command=launchwebsite)
 helpmenu.add_separator()
 ## need to add functions for this
-helpmenu.add_command(label="View Software Guide", command=swguide)
-helpmenu.add_command(label="View XDFL & Calibration Guide", command=xdfl)
+helpmenu.add_command(label="View Software Guide", command=software)
+helpmenu.add_command(label="View Hardware Guide", command=hardware)
+helpmenu.add_command(label="View Full User Guide", command=fullguide)
 #helpmenu.add_command(label="View Assembly Instructions", command=launchwebsite)
 helpmenu.add_separator()
-helpmenu.add_command(label="Heated Tray Specs", command=heatedtray)
-helpmenu.add_command(label="Temperature controller Specs", command=tempctrl)
-helpmenu.add_command(label="USB Microscope Tool Specs", command=usbmcr)
+helpmenu.add_command(label="Accessories Guide", command=accessoriesGuide)
+helpmenu.add_command(label="Temperature controller Guide", command=tempctrl)
+helpmenu.add_command(label="Filament Tool Guide", command=filament)
 helpmenu.add_command(label="UV Tool Specs", command=uvspcs)
 menubar.add_cascade(label="Help Manuals & Specs", menu=helpmenu)
 

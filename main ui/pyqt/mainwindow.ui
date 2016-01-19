@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>640</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>640</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Seraph Scientist LabManager</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="studioButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>480</y>
+      <width>400</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>400</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Click to launch SeraphStudio</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="calibrateButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>540</y>
+      <width>400</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>400</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Click to launch Material Calibrator </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="manipulateButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>480</y>
+      <width>201</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Launch Manipulator</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="viewButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>540</y>
+      <width>201</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Launch XDFL Viewer</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="printButton">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>480</y>
+      <width>400</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>400</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Click to launch SeraphPrint</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quitButton">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>540</y>
+      <width>400</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>400</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Quit LabManager</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>475</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1000</width>
+      <height>475</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1000</width>
+      <height>475</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>studioButton</zorder>
+   <zorder>calibrateButton</zorder>
+   <zorder>manipulateButton</zorder>
+   <zorder>viewButton</zorder>
+   <zorder>printButton</zorder>
+   <zorder>quitButton</zorder>
+   <zorder>label</zorder>
+   <zorder></zorder>
+   <zorder></zorder>
+   <zorder></zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEssential_tools">
+    <property name="title">
+     <string>Essential tools</string>
+    </property>
+    <addaction name="actionLaunch_Seraph_Studio"/>
+    <addaction name="actionLaunch_Seraph_Print"/>
+   </widget>
+   <widget class="QMenu" name="menuOptional_Advanced_Tools">
+    <property name="title">
+     <string>Optional &amp; Advanced Tools</string>
+    </property>
+    <addaction name="actionCalibrate_New_Material"/>
+    <addaction name="actionManipulate_XDFL_Files"/>
+    <addaction name="actionVisualize_XDFL_Files"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp_Manuals_Specs">
+    <property name="title">
+     <string>Help Manuals &amp; Specs</string>
+    </property>
+    <addaction name="actionLaunch_Seraph_Robotics_Website"/>
+    <addaction name="separator"/>
+    <addaction name="actionView_Software_Guide"/>
+    <addaction name="actionView_XDFL_Calibration_Guide"/>
+    <addaction name="separator"/>
+    <addaction name="actionHeated_Tray_Specs"/>
+    <addaction name="actionTemprature_Controller_User_Guide"/>
+    <addaction name="actionUSB_Microscope_Specs"/>
+    <addaction name="actionUV_Tool_Specs"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEssential_tools"/>
+   <addaction name="menuOptional_Advanced_Tools"/>
+   <addaction name="menuHelp_Manuals_Specs"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </action>
+  <action name="actionLaunch_Seraph_Studio">
+   <property name="text">
+    <string>Launch Seraph Studio</string>
+   </property>
+  </action>
+  <action name="actionLaunch_Seraph_Print">
+   <property name="text">
+    <string>Launch Seraph Print</string>
+   </property>
+  </action>
+  <action name="actionCalibrate_New_Material">
+   <property name="text">
+    <string>Calibrate New Material</string>
+   </property>
+  </action>
+  <action name="actionManipulate_XDFL_Files">
+   <property name="text">
+    <string>Manipulate XDFL Files</string>
+   </property>
+  </action>
+  <action name="actionVisualize_XDFL_Files">
+   <property name="text">
+    <string>Visualize XDFL Files</string>
+   </property>
+  </action>
+  <action name="actionLaunch_Seraph_Robotics_Website">
+   <property name="text">
+    <string>Launch Seraph Robotics Website</string>
+   </property>
+  </action>
+  <action name="actionView_Software_Guide">
+   <property name="text">
+    <string>View Software Guide</string>
+   </property>
+  </action>
+  <action name="actionView_XDFL_Calibration_Guide">
+   <property name="text">
+    <string>View XDFL &amp; Calibration Guide</string>
+   </property>
+  </action>
+  <action name="actionHeated_Tray_Specs">
+   <property name="text">
+    <string>Heated Tray Specs</string>
+   </property>
+  </action>
+  <action name="actionTemprature_Controller_User_Guide">
+   <property name="text">
+    <string>Temprature Controller User Guide</string>
+   </property>
+  </action>
+  <action name="actionUSB_Microscope_Specs">
+   <property name="text">
+    <string>USB Microscope Specs</string>
+   </property>
+  </action>
+  <action name="actionUV_Tool_Specs">
+   <property name="text">
+    <string>UV Tool Specs</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
